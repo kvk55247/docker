@@ -7,9 +7,12 @@ resource "aws_instance" "docker" {
   root_block_device {
     volume_size = 50
     volume_type = "gp3" # or "gp2", depending on your preference
+     tags = {
+      Name = "${var.project}-${var.environment}-docker-volume"
+    }
   }
   user_data = file("docker.sh")
-  #iam_instance_profile = "TerraformAdmin"
+  iam_instance_profile = "TerraformAdmin"
   tags = {
      Name = "${var.project}-${var.environment}-docker"
   }
